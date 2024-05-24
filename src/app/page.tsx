@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -11,7 +12,7 @@ export default function Home() {
       <Button variant={"muted"}>Click here</Button>
       <Button variant={"outline"}>Click here</Button>
       <Button variant={"teritary"}>Click here</Button>
-      <Input/>
+      <Input />
     </div>
   );
 }

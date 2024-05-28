@@ -1,5 +1,5 @@
 "use client";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,10 +9,11 @@ import {
 import { DottedSeparator } from "@/components/dotted-separator";
 import { useLogout } from "../api/use-logout";
 import { useCurrent } from "../api/use-current";
-import { Loader } from "lucide-react";
+import { Loader, LogOut } from "lucide-react";
 
 export const UserButton = () => {
   const { data: user, isLoading } = useCurrent();
+  const { mutate: logout } = useLogout();
 
   if (isLoading) {
     return (
@@ -59,6 +60,13 @@ export const UserButton = () => {
           </div>
         </div>
         <DottedSeparator className=" mb-1" />
+        <DropdownMenuItem
+          onClick={() => logout()}
+          className=" flex items-center justify-center text-amber-700 font-medium cursor-pointer"
+        >
+          <LogOut className=" size-4 mr-2" />
+          Log Out
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

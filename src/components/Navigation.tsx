@@ -1,10 +1,8 @@
 "use client";
 
-import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
-import { cn } from "@/lib/utils";
-import { SettingsIcon, UsersIcon } from "lucide-react";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
+import { SettingsIcon, UsersIcon } from "lucide-react";
 import {
   GoHome,
   GoHomeFill,
@@ -12,10 +10,13 @@ import {
   GoCheckCircleFill,
 } from "react-icons/go";
 
+import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
+import { cn } from "@/lib/utils";
+
 const routes = [
   {
     label: "Home",
-    href: "/",
+    href: "",
     icon: GoHome,
     activeIcon: GoHomeFill,
   },
@@ -43,15 +44,12 @@ export const Navigation = () => {
   const workspaceId = useWorkspaceId();
   const pathname = usePathname();
 
-  console.log("pathname: ", pathname);
-
   return (
     <ul className=" flex flex-col">
       {routes.map((item) => {
         const fullHref = `/workspaces/${workspaceId}${item.href}`;
         const isActive = pathname === fullHref;
         const Icon = isActive ? item.activeIcon : item.icon;
-        console.log("fullHref: ", fullHref);
 
         return (
           <Link key={item.href} href={fullHref}>

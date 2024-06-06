@@ -1,4 +1,14 @@
 "use client";
+
+import { Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
+import Link from "next/link";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { FcGoogle } from "react-icons/fc";
+import { FaGithub } from "react-icons/fa";
+
 import { DottedSeparator } from "@/components/dotted-separator";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,12 +20,6 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { FcGoogle } from "react-icons/fc";
-import { FaGithub } from "react-icons/fa";
-import Link from "next/link";
-import { z } from "zod";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
   FormControl,
@@ -23,10 +27,12 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
+
 import { registerSchema } from "../Schemas";
 import { useRegister } from "../api/use-register";
 
 export const SignUpCard = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const { mutate, isPending } = useRegister();
 
   const form = useForm<z.infer<typeof registerSchema>>({
@@ -102,11 +108,25 @@ export const SignUpCard = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input
-                      {...field}
-                      type="password"
-                      placeholder="Enter the password"
-                    />
+                    <div className=" flex w-full relative items-center">
+                      <Input
+                        {...field}
+                        type={showPassword ? "text" : "password"}
+                        placeholder="Enter the password"
+                      />
+                      <Button
+                        variant={"secondary"}
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className=" absolute right-1"
+                      >
+                        {showPassword ? (
+                          <Eye size={20} />
+                        ) : (
+                          <EyeOff size={20} />
+                        )}
+                      </Button>
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>

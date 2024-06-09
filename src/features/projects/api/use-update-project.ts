@@ -6,39 +6,38 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { client } from "@/lib/rpc";
 
 type RequestType = InferRequestType<
-  (typeof client.api.workspaces)[":workspaceId"]["$patch"]
+  (typeof client.api.projects)[":projectId"]["$patch"]
 >;
 type ResponseType = InferResponseType<
-  (typeof client.api.workspaces)[":workspaceId"]["$patch"],
+  (typeof client.api.projects)[":projectId"]["$patch"],
   200
 >;
-// responseType returns both error and data and we have to explicitly define that it is not error
 
-export const useUpdateWorkspace = () => {
+export const useUpdateProject = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
 
   const mutation = useMutation<ResponseType, Error, RequestType>({
     mutationFn: async ({ form, param }) => {
-      const response = await client.api.workspaces[":workspaceId"]["$patch"]({
+      const response = await client.api.projects[":projectId"]["$patch"]({
         form,
         param,
       });
 
       if (!response.ok) {
-        throw new Error("Failed to update Workspace");
+        throw new Error("Failed to update Project");
       }
 
       return await response.json();
     },
     onSuccess: ({ data }) => {
-      toast.success("Workspace created");
+      toast.success("Project Updated");
       router.refresh();
-      queryClient.invalidateQueries({ queryKey: ["workspaces"] });
-      queryClient.invalidateQueries({ queryKey: ["workspaces", data.$id] });
+      queryClient.invalidateQueries({ queryKey: ["projects"] });
+      queryClient.invalidateQueries({ queryKey: ["projects", data.$id] });
     },
     onError: () => {
-      toast.error("Failed to create workspace");
+      toast.error("Failed to update project");
     },
   });
   return mutation;

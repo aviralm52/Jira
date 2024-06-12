@@ -8,7 +8,7 @@ import { createAdminClient } from "@/lib/appwrite";
 import { getMember } from "@/features/members/utils";
 import { sessionMiddleware } from "@/lib/session-middleware";
 
-import { TaskStatus } from "../types";
+import { Task, TaskStatus } from "../types";
 import { createTaskSchema } from "../schemas";
 import { Project } from "@/features/projects/types";
 
@@ -72,7 +72,11 @@ const app = new Hono()
         query.push(Query.equal("name", search));
       }
 
-      const tasks = await databases.listDocuments(DATABASE_ID, TASKS_ID, query);
+      const tasks = await databases.listDocuments<Task>(
+        DATABASE_ID,
+        TASKS_ID,
+        query
+      );
 
       const projectIds = tasks.documents.map((task) => task.projectId);
       const assigneeIds = tasks.documents.map((task) => task.assigneeId);

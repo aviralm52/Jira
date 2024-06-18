@@ -7,35 +7,36 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
 type RequestType = InferRequestType<
-  (typeof client.api.tasks)[":taskId"]["$delete"]
+    (typeof client.api.tasks)[":taskId"]["$delete"]
 >;
 type ResponseType = InferResponseType<
-  (typeof client.api.tasks)[":taskId"]["$delete"],
-  200
+    (typeof client.api.tasks)[":taskId"]["$delete"],
+    200
 >;
 
 export const useDeleteTask = () => {
-  const router = useRouter();
-  const queryClient = useQueryClient();
+    const queryClient = useQueryClient();
 
-  const mutation = useMutation<ResponseType, Error, RequestType>({
-    mutationFn: async ({ param }) => {
-      const response = await client.api.tasks[":taskId"]["$delete"]({ param });
+    const mutation = useMutation<ResponseType, Error, RequestType>({
+        mutationFn: async ({ param }) => {
+            const response = await client.api.tasks[":taskId"]["$delete"]({
+                param,
+            });
 
-      if (!response.ok) {
-        throw new Error("Failed to delete Task");
-      }
+            if (!response.ok) {
+                throw new Error("Failed to delete Task");
+            }
 
-      return await response.json();
-    },
-    onSuccess: ({ data }) => {
-      toast.success("Task deleted");
-      queryClient.invalidateQueries({ queryKey: ["tasks"] });
-      queryClient.invalidateQueries({ queryKey: ["task", data.$id] });
-    },
-    onError: () => {
-      toast.error("Failed to delete task");
-    },
-  });
-  return mutation;
+            return await response.json();
+        },
+        onSuccess: ({ data }) => {
+            toast.success("Task deleted");
+            queryClient.invalidateQueries({ queryKey: ["tasks"] });
+            queryClient.invalidateQueries({ queryKey: ["task", data.$id] });
+        },
+        onError: () => {
+            toast.error("Failed to delete task");
+        },
+    });
+    return mutation;
 };

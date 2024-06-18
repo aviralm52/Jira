@@ -102,14 +102,10 @@ export const EditWorkspaceForm = ({
     };
 
     // error in line 60 for form type
-    mutate(
-      { form: finalValues, param: { workspaceId: initialValues.$id } },
-      {
-        onSuccess: ({ data }) => {
-          form.reset();
-        },
-      }
-    );
+    mutate({
+      form: finalValues,
+      param: { workspaceId: initialValues.$id }
+    });
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {

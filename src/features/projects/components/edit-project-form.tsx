@@ -84,12 +84,7 @@ export const EditProjectForm = ({
 
     // error in line 60 for form type
     mutate(
-      { form: finalValues, param: { projectId: initialValues.$id } },
-      {
-        onSuccess: ({ data }) => {
-          form.reset();
-        },
-      }
+      { form: finalValues, param: { projectId: initialValues.$id } }
     );
   };
 
@@ -112,9 +107,9 @@ export const EditProjectForm = ({
               onCancel
                 ? onCancel
                 : () =>
-                    router.push(
-                      `/workspaces/${initialValues.workspaceId}/projects/${initialValues.$id}}`
-                    )
+                  router.push(
+                    `/workspaces/${initialValues.workspaceId}/projects/${initialValues.$id}}`
+                  )
             }
           >
             <ArrowLeftIcon className=" size-4" />

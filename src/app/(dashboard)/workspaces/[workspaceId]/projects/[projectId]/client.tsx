@@ -1,24 +1,32 @@
+"use client";
+
 import Link from "next/link"
 import { PencilIcon } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
-import { PageError } from "@/components/page-error"
-import { PageLoader } from "@/components/page-loader"
 import { useProjectId } from "@/features/projects/hooks/use-task-id"
 import { useGetProject } from "@/features/projects/api/use-get-project"
 import { ProjectAvatar } from "@/features/projects/components/project-avatar"
 import { TaskViewSwitcher } from "@/features/tasks/components/task-view-switcher"
+import { useGetProjectAnalytics } from "@/features/projects/api/use-get-project-analytics"
+
+import { Button } from "@/components/ui/button"
+import { Analytics } from "@/components/analytics"
+import { PageError } from "@/components/page-error"
+import { PageLoader } from "@/components/page-loader"
 
 export const ProjectIdClient = () => {
 
     const projectId = useProjectId();
-    const { data, isLoading } = useGetProject({ projectId })
+    const { data: project, isLoading: isLoadingProject } = useGetProject({ projectId })
+    const { data: analytics, isLoading: isLoadingAnalytics } = useGetProjectAnalytics({ projectId })
+
+    const isLoading = isLoadingProject || isLoadingAnalytics;
 
     if (isLoading) {
         return <PageLoader />
     }
 
-    if (!data) {
+    if (!project) {
         return <PageError message="Project not found" />
     }
 
@@ -27,16 +35,16 @@ export const ProjectIdClient = () => {
             <div className=" flex items-center justify-between">
                 <div className=" flex items-center gap-x-2">
                     <ProjectAvatar
-                        name={data.name}
-                        image={data.imageUrl}
+                        name={project.name}
+                        image={project.imageUrl}
                         className=" size-8"
                     />
-                    <p className=" text-lg font-semibold">{data.name}</p>
+                    <p className=" text-lg font-semibold">{project.name}</p>
                 </div>
                 <div>
                     <Button variant={"secondary"} size={"sm"} asChild>
                         <Link
-                            href={`/workspaces/${data.workspaceId}/projects/${data.$id}/settings`}
+                            href={`/workspaces/${project.workspaceId}/projects/${project.$id}/settings`}
                         >
                             <PencilIcon className=" size-4 mr-2" />
                             Edit Project
@@ -44,6 +52,7 @@ export const ProjectIdClient = () => {
                     </Button>
                 </div>
             </div>
+            {analytics ? (<Analytics data={analytics} />) : null}
             <TaskViewSwitcher hideProjectFilter />
         </div>
     )

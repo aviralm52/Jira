@@ -6,6 +6,9 @@ import { useForm } from "react-hook-form";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+import { MemberAvatar } from "@/features/members/components/member-avatar";
+import { ProjectAvatar } from "@/features/projects/components/project-avatar";
+
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { DatePicker } from "@/components/date-picker";
@@ -21,8 +24,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-import { useCreateTask } from "../api/use-create-task";
+import { TaskStatus } from "../types";
 import { createTaskSchema } from "../schemas";
+import { useCreateTask } from "../api/use-create-task";
 import {
   Select,
   SelectContent,
@@ -30,9 +34,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { MemberAvatar } from "@/features/members/components/member-avatar";
-import { TaskStatus } from "../types";
-import { ProjectAvatar } from "@/features/projects/components/project-avatar";
 
 interface CreateTaskFormProps {
   onCancel?: () => void;

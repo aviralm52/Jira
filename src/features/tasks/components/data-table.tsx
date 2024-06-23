@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+
 import {
   ColumnDef,
   SortingState,
@@ -21,7 +22,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 interface DataTableProps<TData, TValue> {
@@ -55,16 +55,6 @@ export function DataTable<TData, TValue>({
 
   return (
     <div>
-      {/* <div className="flex items-center py-4">
-        <Input
-          placeholder="Filter Tasks"
-          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("name")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        />
-      </div> */}
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -76,9 +66,9 @@ export function DataTable<TData, TValue>({
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
                     </TableHead>
                   );
                 })}
@@ -120,7 +110,7 @@ export function DataTable<TData, TValue>({
           variant="secondary"
           size="sm"
           onClick={() => table.previousPage()}
-          // disabled={!table.getCanPreviousPage()}
+          disabled={!table.getCanPreviousPage()}
         >
           Previous
         </Button>
@@ -128,7 +118,7 @@ export function DataTable<TData, TValue>({
           variant="secondary"
           size="sm"
           onClick={() => table.nextPage()}
-          // disabled={!table.getCanNextPage()}
+          disabled={!table.getCanNextPage()}
         >
           Next
         </Button>

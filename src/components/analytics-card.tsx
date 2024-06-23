@@ -1,7 +1,8 @@
 import { FaCaretDown, FaCaretUp } from "react-icons/fa";
-import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card";
+
 import { cn } from "@/lib/utils";
-import { Icon } from "lucide-react";
+
+import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card";
 
 interface AnalyticsCardProps {
     title: string;

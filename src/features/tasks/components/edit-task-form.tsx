@@ -10,7 +10,6 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { DatePicker } from "@/components/date-picker";
 import { DottedSeparator } from "@/components/dotted-separator";
-import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Form,
@@ -21,7 +20,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-import { useCreateTask } from "../api/use-create-task";
 import { createTaskSchema } from "../schemas";
 import {
   Select,

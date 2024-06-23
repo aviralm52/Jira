@@ -170,7 +170,6 @@ interface MembersListProps {
 export const MembersList = ({ data, total }: MembersListProps) => {
 
     const workspaceId = useWorkspaceId()
-    const { open: createProject } = useCreateProjectModal();
 
     return (
         <div className=" flex flex-col gap-y-4 col-span-1">

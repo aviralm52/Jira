@@ -4,7 +4,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { client } from "@/lib/rpc";
 
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 
 type RequestType = InferRequestType<
     (typeof client.api.tasks)[":taskId"]["$delete"]

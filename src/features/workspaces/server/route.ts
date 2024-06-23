@@ -1,7 +1,12 @@
 import { z } from "zod";
 import { Hono } from "hono";
 import { ID, Query } from "node-appwrite";
+
 import { zValidator } from "@hono/zod-validator";
+
+import { getMember } from "@/features/members/utils";
+import { TaskStatus } from "@/features/tasks/types";
+import { MemberRole } from "@/features/members/types";
 
 import {
     TASKS_ID,
@@ -11,14 +16,11 @@ import {
     IMAGES_BUCKET_ID,
 } from "@/config";
 import { generateInviteCode } from "@/lib/utils";
-import { getMember } from "@/features/members/utils";
-import { MemberRole } from "@/features/members/types";
 import { sessionMiddleware } from "@/lib/session-middleware";
 
 import { Workspace } from "../types";
-import { createWorkspaceSchema, updateWorkspaceSchema } from "../schema";
 import { endOfMonth, startOfMonth, subMonths } from "date-fns";
-import { TaskStatus } from "@/features/tasks/types";
+import { createWorkspaceSchema, updateWorkspaceSchema } from "../schema";
 
 const app = new Hono()
     .get("/", sessionMiddleware, async (c) => {
@@ -69,7 +71,7 @@ const app = new Hono()
         return c.json({ data: workspace });
     })
     .get("/:workspaceId/info", sessionMiddleware, async (c) => {
-        const user = c.get("user");
+        // const user = c.get("user");
         const databases = c.get("databases");
         const { workspaceId } = c.req.param();
 

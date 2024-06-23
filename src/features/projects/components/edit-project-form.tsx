@@ -2,19 +2,19 @@
 import { z } from "zod";
 import { useRef } from "react";
 import Image from "next/image";
-import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { ArrowLeftIcon, CopyIcon, ImageIcon } from "lucide-react";
+import { ArrowLeftIcon, ImageIcon } from "lucide-react";
 
+import { useConfirm } from "@/hooks/use-confirm";
 import { zodResolver } from "@hookform/resolvers/zod";
+
+import { cn } from "@/lib/utils";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { DottedSeparator } from "@/components/dotted-separator";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import { useConfirm } from "@/hooks/use-confirm";
 import {
   Form,
   FormControl,
@@ -176,13 +176,13 @@ export const EditProjectForm = ({
                             type="file"
                             accept=".jpg, .png, .jpeg, .svg"
                             ref={inputRef}
-                            disabled={isPending}
+                            disabled={isPending || isDeletingProject}
                             onChange={handleImageChange}
                           />
                           {field.value ? (
                             <Button
                               type="button"
-                              disabled={isPending}
+                              disabled={isPending || isDeletingProject}
                               variant="destructive"
                               size="xs"
                               className=" w-fit mt-2"
@@ -198,7 +198,7 @@ export const EditProjectForm = ({
                           ) : (
                             <Button
                               type="button"
-                              disabled={isPending}
+                              disabled={isPending || isDeletingProject}
                               variant="teritary"
                               size="xs"
                               className=" w-fit mt-2"

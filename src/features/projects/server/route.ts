@@ -1,18 +1,18 @@
+import { z } from "zod";
 import { Hono } from "hono";
 import { ID, Query } from "node-appwrite";
-import { z } from "zod";
+
 import { zValidator } from "@hono/zod-validator";
 
 import { getMember } from "@/features/members/utils";
-import { sessionMiddleware } from "@/lib/session-middleware";
-import { MemberRole } from "@/features/members/types";
+
 import {
     DATABASE_ID,
     IMAGES_BUCKET_ID,
     PROJECTS_ID,
     TASKS_ID,
-    WORKSPACES_ID,
 } from "@/config";
+import { sessionMiddleware } from "@/lib/session-middleware";
 
 import { createProjectSchema, updateProjectSchema } from "../schema";
 import { Project } from "../types";

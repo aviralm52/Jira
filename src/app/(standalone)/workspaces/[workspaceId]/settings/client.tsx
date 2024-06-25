@@ -7,7 +7,7 @@ import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
 import { PageError } from "@/components/page-error";
 import { PageLoader } from "@/components/page-loader";
 
-export const WorkspaceIdSettingsPage = async () => {
+export const WorkspaceIdSettingsClient = async () => {
 
     const workspaceId = useWorkspaceId();
     const { data: initialValues, isLoading } = useGetWorkspace({ workspaceId });

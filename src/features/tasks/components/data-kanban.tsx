@@ -95,7 +95,6 @@ export const DataKanban = ({ data, onChange }: DataKanbanProps) => {
         const [movedTask] = sourceColumn.splice(source.index, 1);
 
         if (!movedTask) {
-          console.error("No Task found at the source index");
           return prev;
         }
 

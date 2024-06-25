@@ -10,7 +10,6 @@ import { PopoverContent } from "@radix-ui/react-popover";
 import { Button } from "./ui/button";
 import { Calendar } from "./ui/calendar";
 import { Popover, PopoverTrigger } from "./ui/popover";
-import { useEffect } from "react";
 
 interface DatePickerProps {
   value: Date | undefined;
@@ -25,9 +24,6 @@ export const DatePicker = ({
   className,
   placeholder = "Select date",
 }: DatePickerProps) => {
-  useEffect(() => {
-    console.log("value in datepicker: ", value);
-  }, [value]);
 
   return (
     <Popover>

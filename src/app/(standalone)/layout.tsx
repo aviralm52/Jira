@@ -14,10 +14,10 @@ const StandAloneLayout = ({ children }: StandAloneLayoutProps) => {
                 <nav className=" flex justify-between items-center h-[73px]">
                     <Link href="/">
                         <Image
-                            src="/logo2.webp"
+                            src="/ProManage.png"
                             alt="Logo"
-                            height={56}
-                            width={152}
+                            height={70}
+                            width={220}
                         />
                     </Link>
                     <UserButton />

@@ -14,7 +14,7 @@ const AuthLayout = ({ children }: AuthLayoutProps) => {
     <main className=" bg-neutral-100 min-h-screen">
       <div className=" mx-auto max-w-screen-2xl p-4">
         <nav className=" flex justify-between items-center">
-          <img src="/logovs.webp" alt="logo" className=" w-16 h-16" />
+          <img src="/ProManage.png" alt="logo" className=" w-52 h-16" />
           <Button asChild variant={"secondary"}>
             <Link href={pathName === "/sign-in" ? "/sign-up" : "/sign-in"}>
               {pathName === "/sign-in" ? "Sign Up" : "Login"}

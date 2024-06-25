@@ -1,32 +1,34 @@
 "use client";
 
-import { Eye, EyeOff } from "lucide-react";
-import { useState } from "react";
-import Link from "next/link";
 import { z } from "zod";
+import Link from "next/link";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { Eye, EyeOff } from "lucide-react";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 
-import { DottedSeparator } from "@/components/dotted-separator";
-import { Button } from "@/components/ui/button";
+import { zodResolver } from "@hookform/resolvers/zod";
+
 import {
   Card,
+  CardTitle,
+  CardHeader,
   CardContent,
   CardDescription,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
 import {
   Form,
-  FormControl,
-  FormField,
   FormItem,
+  FormField,
   FormMessage,
+  FormControl,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { DottedSeparator } from "@/components/dotted-separator";
+import { signUpWithGithub, signUpWithGoogle } from "@/lib/oauth";
 
 import { registerSchema } from "../Schemas";
 import { useRegister } from "../api/use-register";
@@ -143,6 +145,7 @@ export const SignUpCard = () => {
       </div>
       <CardContent className=" p-3 flex flex-col gap-y-4">
         <Button
+          onClick={() => signUpWithGoogle()}
           disabled={isPending}
           variant={"secondary"}
           size={"lg"}
@@ -152,6 +155,7 @@ export const SignUpCard = () => {
           Login with Google
         </Button>
         <Button
+          onClick={() => signUpWithGithub()}
           disabled={isPending}
           variant={"secondary"}
           size={"lg"}
